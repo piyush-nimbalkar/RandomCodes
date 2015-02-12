@@ -12,8 +12,8 @@ using namespace std;
 string itoa(int number)
 {
     if (number < 10)
-        return (number + '0');
-    return itoa(number / 10)
+        return string(1, number + '0');
+    return itoa(number / 10) + string(1, (number % 10) + '0');
 }
 
 string i18n(string word)
@@ -34,11 +34,11 @@ map<string, string> map_dict(vector<string> dict)
     vector<string>::iterator it;
     for (it = dict.begin(); it != dict.end(); it++) {
         string key = i18n(*it);
-        if (master_map[key].count() > 0) {
-            master_map[key].second.push_back(*it);
+        if (master_map.count(key) > 0) {
+            master_map[key].push_back(*it);
         } else {
             vector<string> temp;
-            temp.push_back(dict);
+            temp.push_back(*it);
             master_map[key] = temp;
         }
     }
@@ -57,8 +57,11 @@ map<string, string> map_dict(vector<string> dict)
 int main(int argc, char *argv[])
 {
     string dict_array[] = {"shashank", "stick", "stack"};
-    vector<string> dict(dict_array, dict_array[2]);
+    vector<string> dict(dict_array, dict_array+2);
 
-    map_dict(dict);
+    map<string, string> result = map_dict(dict);
+    for (map<string, string>::iterator i = result.begin(); i != result.end(); i++)
+        cout << i->first << " => " << i->second << endl;
+
     return 0;
 }

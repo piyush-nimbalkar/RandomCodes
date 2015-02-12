@@ -13,11 +13,9 @@ TreeNode * common_ancestor(TreeNode *root, TreeNode *first, TreeNode *second)
     return root;
 }
 
-int is_ancestor(TreeNode *root, TreeNode *node)
+bool is_ancestor(TreeNode *root, TreeNode *node)
 {
-    if (root == NULL)
-        return 0;
-    if (root == node || is_ancestor(root -> left, node) || is_ancestor(root -> right, node))
-        return 1;
-    return 0;
+    if (root && root == node || is_ancestor(root -> left, node) || is_ancestor(root -> right, node))
+        return true;
+    return false;
 }

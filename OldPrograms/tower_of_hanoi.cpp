@@ -49,11 +49,9 @@ int Tower :: pop()
 void tower_of_hanoi(Tower &source, Tower &destination, Tower &buffer, int count)
 {
     if(count > 0) {
-        cout << "Moving " << count - 1 << " elements from " << source.get_name() << " -> " << buffer.get_name() << endl;
         tower_of_hanoi(source, buffer, destination, count - 1);
-        cout << "Moving last element from " << source.get_name() << " -> " << destination.get_name() << endl;
+        cout << source.get_name() << " -> " << destination.get_name() << endl;
         destination.push(source.pop());
-        cout << "Moving " << count - 1 << " elements from " << buffer.get_name() << " -> " << destination.get_name() << endl;
         tower_of_hanoi(buffer, destination, source, count - 1);
     }
 }

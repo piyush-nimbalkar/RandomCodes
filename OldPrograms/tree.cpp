@@ -113,9 +113,7 @@ int is_balanced(TreeNode *root)
     int left = is_balanced(root -> left);
     int right = is_balanced(root -> right);
 
-    if (left == -1 || right == -1)
-        return -1;
-    if (abs(left - right) > 1)
+    if (left == -1 || right == -1 || abs(left - right) > 1)
         return -1;
     return abs(left - right) + 1;
 }
@@ -127,9 +125,9 @@ void generate_lists(TreeNode *root)
     list[level].push_back(*root);
     while(true) {
         for(vector<TreeNode> :: iterator it = list[level].begin(); it != list[level].end(); it++) {
-            if((*it).left)
+            if(it->left)
                 list[level + 1].push_back(*(*it).left);
-            if((*it).right)
+            if((it->right)
                 list[level + 1].push_back(*(*it).right);
         }
         level++;
