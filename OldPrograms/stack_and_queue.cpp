@@ -5,26 +5,29 @@ using namespace std;
 
 const int size = 100;
 
+template <typename T>
 class Stack
 {
-    queue<int> q;
-
+    queue<T> q;
 public:
-    void push(int value);
-    int pop();
+    void push(T value);
+    T pop();
 };
 
-void Stack :: push(int value)
+template <typename T>
+void Stack<T> :: push(T value)
 {
     q.push(value);
 }
 
-int Stack :: pop()
+template <typename T>
+T Stack<T> :: pop()
 {
-    int count, item;
+    int count;
+    T item;
 
     if (q.empty())
-        return -1;
+        throw "Stack overflow!";
 
     count = q.size();
     for (int i = 0; i < count - 1; i++) {
@@ -35,4 +38,23 @@ int Stack :: pop()
     item = q.front();
     q.pop();
     return item;
+}
+
+int main(int argc, char *argv[])
+{
+    Stack<int> s;
+
+    s.push(10);
+    s.push(20);
+    s.push(30);
+
+    try {
+        cout << s.pop() << endl;
+        cout << s.pop() << endl;
+        cout << s.pop() << endl;
+        cout << s.pop() << endl;
+    } catch(const char* str) {
+        cout << str << endl;
+    }
+    return 0;
 }
