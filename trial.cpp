@@ -29,39 +29,38 @@ NQueens :: NQueens(int n)
             matrix[i][j] = 0;
 }
 
-int NQueens :: is_position_available(int row, int col)
+bool NQueens :: is_position_available(int row, int col)
 {
     int i, j;
-    for (i = 0; i < size; i++)
+    for (i = 0; i < row; i++)
         if (matrix[i][col])
-            return 0;
+            return false;
 
     for (i = row-1, j = col+1; i >= 0 && j < size; i--, j++)
         if (matrix[i][j])
-            return 0;
+            return false;
 
     for (i = row-1, j = col-1; i >= 0 && j >= 0; i--, j--)
         if (matrix[i][j])
-            return 0;
+            return false;
 
-    return 1;
+    return true;
 }
 
-int NQueens :: solve(int index)
+bool NQueens :: solve(int index)
 {
     if (index == size)
-        return 1;
+        return true;
 
     for (int i = 0; i < size; i++) {
         if (is_position_available(index, i)) {
             matrix[index][i] = 1;
             if (solve(index + 1))
-                return 1;
-            else
-                matrix[index][i] = 0;
+                return true;
+            matrix[index][i] = 0;
         }
     }
-    return 0;
+    return false;
 }
 
 void NQueens :: display()

@@ -1,26 +1,33 @@
 #include <iostream>
 #include <thread>
+#include <mutex>
 
-// using namespace std;
+using namespace std;
 
-void stars()
+mutex mtx;
+
+void print(char c)
 {
+    mtx.lock();
     for (int i = 0; i < 100; i++)
-        std::cout << "*";
+        cout << c;
+    mtx.unlock();
 }
 
-void dashes()
+void print_with_guard(char c)
 {
+    lock_guard<mutex> lck(mtx);
     for (int i = 0; i < 100; i++)
-        std::cout << "-";
+        cout << c;
 }
-
 
 int main(int argc, char *argv[])
 {
-    std::thread t1(stars);
-    std::thread t2(dashes);
+    thread t1(print_with_guard, '-');
+    thread t2(print_with_guard, '*');
 
     t1.join();
     t2.join();
+
+    return 0;
 }

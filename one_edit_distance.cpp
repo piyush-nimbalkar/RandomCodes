@@ -67,7 +67,7 @@ bool is_one_edit_apart(string s1, string s2)
     string small = s1.length() <= s2.length() ? s1 : s2;
     string large = s1.length() <= s2.length() ? s2 : s1;
 
-    if (small.length() - small.length() > 1)
+    if (large.length() - small.length() > 1)
         return false;
     else if (large.length() == small.length()) {
         for (i = 0; i < small.length(); i++)
